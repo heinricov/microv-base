@@ -11,7 +11,7 @@ export function TypographyH1({
   return (
     <h1
       className={cn(
-        "my-1.5 scroll-mt-24 text-4xl font-extrabold tracking-tight text-balance",
+        "my-1.5 mt-5 scroll-mt-24 text-4xl font-extrabold tracking-tight text-balance",
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ export function TypographyH2({
   return (
     <h2
       className={cn(
-        "my-1.5 scroll-mt-24 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "my-1.5 mt-5 scroll-mt-24 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
       {...props}
@@ -47,7 +47,7 @@ export function TypographyH3({
   return (
     <h3
       className={cn(
-        "my-1.5 scroll-mt-24 border-none text-2xl font-semibold tracking-tight",
+        "my-1.5 mt-3 scroll-mt-24 border-none text-2xl font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -65,7 +65,7 @@ export function TypographyH4({
   return (
     <h4
       className={cn(
-        "my-1.5 scroll-mt-24 text-xl font-semibold tracking-tight",
+        "my-1.5 mt-3 scroll-mt-24 text-xl font-semibold tracking-tight",
         className
       )}
       {...props}
