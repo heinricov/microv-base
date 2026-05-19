@@ -8,6 +8,8 @@ import type { MDXRemoteProps } from "next-mdx-remote/rsc"
 import { MDXRemote } from "next-mdx-remote/rsc"
 
 import { ComponentPreview } from "../components/component-preview"
+import { mdxTableComponents } from "../components/table"
+import { mdxRemoteOptions } from "./mdx-remote-options"
 import {
   TypographyBlockquote,
   TypographyH1,
@@ -75,6 +77,7 @@ const highlightLangForFence = (lang: string) =>
 
 function createMdxComponents(): MdxComponentMap {
   const elements: Omit<MdxComponentMap, "pre"> = {
+    ...mdxTableComponents,
     h1: TypographyH1,
     h2: TypographyH2,
     h3: TypographyH3,
@@ -99,7 +102,11 @@ function createMdxComponents(): MdxComponentMap {
             code={code}
             language={highlightLangForFence(lang)}
           >
-            <MDXRemote source={code} components={full} />
+            <MDXRemote
+              source={code}
+              components={full}
+              options={mdxRemoteOptions}
+            />
           </ComponentPreview>
         )
       }

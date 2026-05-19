@@ -7,6 +7,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
 import { mdxComponents, PageHeader } from "./mdx-components"
+import { mdxRemoteOptions } from "./mdx-remote-options"
 import { cn } from "../lib/utils"
 
 export type MdxReadingProps = {
@@ -105,7 +106,11 @@ export async function MdxReading({
           tag={tag}
         />
       ) : null}
-      <MDXRemote source={content} components={mdxComponents} />
+      <MDXRemote
+        source={content}
+        components={mdxComponents}
+        options={mdxRemoteOptions}
+      />
     </div>
   )
 }
