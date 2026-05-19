@@ -9,7 +9,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 
 import { ComponentPreview } from "../components/component-preview"
 import { mdxTableComponents } from "../components/table"
-import { mdxRemoteOptions } from "./mdx-remote-options"
+import { mdxRemoteOptions } from "../lib/mdx-remote-options"
 import {
   TypographyBlockquote,
   TypographyH1,
@@ -29,8 +29,7 @@ type MdxComponentMap = NonNullable<MDXRemoteProps["components"]>
 
 function nodeToPlainText(node: ReactNode): string {
   if (node == null || typeof node === "boolean") return ""
-  if (typeof node === "string" || typeof node === "number")
-    return String(node)
+  if (typeof node === "string" || typeof node === "number") return String(node)
   if (Array.isArray(node)) return node.map(nodeToPlainText).join("")
   if (isValidElement(node)) {
     const props = node.props as { children?: ReactNode }
@@ -54,8 +53,7 @@ function extractFenceFromPre(children: ReactNode): {
 
     const elType = child.type
     const isCode =
-      elType === "code" ||
-      (typeof elType === "string" && elType === "code")
+      elType === "code" || (typeof elType === "string" && elType === "code")
 
     if (!isCode) return
 
@@ -98,10 +96,7 @@ function createMdxComponents(): MdxComponentMap {
       const { lang, code } = extractFenceFromPre(props.children)
       if (lang === PREVIEW_FENCE_LANG && code.length > 0) {
         return (
-          <ComponentPreview
-            code={code}
-            language={highlightLangForFence(lang)}
-          >
+          <ComponentPreview code={code} language={highlightLangForFence(lang)}>
             <MDXRemote
               source={code}
               components={full}

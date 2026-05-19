@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
 import { mdxComponents, PageHeader } from "./mdx-components"
-import { mdxRemoteOptions } from "./mdx-remote-options"
+import { mdxRemoteOptions } from "../lib/mdx-remote-options"
 import { cn } from "../lib/utils"
 
 export type MdxReadingProps = {
