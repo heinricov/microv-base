@@ -1,4 +1,9 @@
 {
-  "extends": "@workspace/typescript-config/base.json"
+  "baseUrl": ".",
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "files": [],
+  "include": []
 }
-

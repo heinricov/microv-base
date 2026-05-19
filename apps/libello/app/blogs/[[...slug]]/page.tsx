@@ -1,3 +1,4 @@
+import BlogsSection from "@/components/blogs"
 import { MdxReading } from "microv-mdx"
 
 type PageProps = {
@@ -6,5 +7,10 @@ type PageProps = {
 
 export default async function BlogsPage({ params }: PageProps) {
   const { slug } = await params
+
+  if (!slug?.length) {
+    return <BlogsSection />
+  }
+
   return <MdxReading source="/blogs" slug={slug} />
 }
