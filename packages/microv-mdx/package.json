@@ -1,6 +1,6 @@
 {
   "name": "microv-mdx",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "MDX file reading and rendering for Next.js App Router (next-mdx-remote, preview fences, typography)",
   "type": "module",
   "main": "./dist/index.js",
