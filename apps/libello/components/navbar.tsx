@@ -6,10 +6,8 @@ import React from "react"
 import { cn } from "@/lib/utils"
 
 const menuItems = [
-  { name: "Features", href: "#link" },
-  { name: "Solution", href: "#link" },
-  { name: "Pricing", href: "#link" },
-  { name: "About", href: "#link" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
 ]
 
 export const NavbarComponent = () => {
