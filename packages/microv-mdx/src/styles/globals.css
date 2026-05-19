@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-/* Dari src/styles: pindai src/** ; dari dist/styles (npm): pindai dist/** — kelas ada di .tsx / .js komponen paket */
+/* Memindai semua komponen paket (typography, badge, table, preview, …) di src/ atau dist/ */
 @source "../**/*.{ts,tsx,js,mjs}";
 
 @theme inline {

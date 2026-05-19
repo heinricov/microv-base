@@ -1,5 +1,5 @@
 import React from "react"
-import { Badge } from "@workspace/ui/components/badge"
+import { Badge } from "./ui/badge"
 
 export default function PageHeader({
   title,

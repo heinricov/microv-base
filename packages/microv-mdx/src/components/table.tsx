@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/table"
+} from "./ui/table"
 
 import { cn } from "../lib/utils"
 
