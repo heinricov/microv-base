@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
 import { createMdxComponents, PageHeader } from "./mdx-components"
-import { TocLayout } from "./toc"
+import { TocLayout } from "../components/toc"
 import { extractHeadings } from "../lib/heading-slug"
 import { mdxRemoteOptions } from "../lib/mdx-remote-options"
 

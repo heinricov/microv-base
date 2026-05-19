@@ -1,5 +1,6 @@
 import React from "react"
 import { Badge } from "./ui/badge"
+import { PageBreadcrumb } from "./page-breadcrumb"
 
 export default function PageHeader({
   title,
@@ -11,7 +12,8 @@ export default function PageHeader({
   tag?: string[]
 }) {
   return (
-    <div className="my-5 mb-10">
+    <div className="my-5 mb-10 border-b pb-5">
+      <PageBreadcrumb currentLabel={title} />
       <div>
         {tag != null && tag.length > 0 ? (
           <div className="mt-3 flex flex-wrap gap-2">
@@ -22,7 +24,7 @@ export default function PageHeader({
             ))}
           </div>
         ) : null}
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
+        <h1 className="mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
           {title}
         </h1>
       </div>

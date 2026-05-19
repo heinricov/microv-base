@@ -19,7 +19,7 @@ import {
 } from "../components/ui/sidebar"
 import type { TocItem } from "../lib/heading-slug"
 import { cn } from "../lib/utils"
-import { mdxTocLayoutVars, type MdxTocLayoutCssVars } from "./toc-vars"
+import { mdxTocLayoutVars, type MdxTocLayoutCssVars } from "../lib/toc-vars"
 
 const levelIndent: Record<TocItem["level"], string> = {
   1: "font-medium",
@@ -128,12 +128,7 @@ export function TocLayout({
             <span className="text-sm font-medium">Daftar isi</span>
           </div>
           <div className="flex justify-center px-4 py-6">
-            <div
-              className={cn(
-                "w-full max-w-3xl space-y-5",
-                className
-              )}
-            >
+            <div className={cn("w-full max-w-3xl space-y-5", className)}>
               {children}
             </div>
           </div>
@@ -146,4 +141,3 @@ export function TocLayout({
     </div>
   )
 }
-
