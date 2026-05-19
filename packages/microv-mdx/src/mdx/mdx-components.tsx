@@ -37,6 +37,9 @@ function nodeToPlainText(node: ReactNode): string {
   return ""
 }
 
+/** Fence live preview + kode: gunakan ```preview ... ``` — isi di-parse sebagai MDX (`MDXRemote`). */
+const PREVIEW_FENCE_LANG = "preview"
+
 function extractFenceFromPre(children: ReactNode): {
   lang: string | null
   code: string
@@ -59,7 +62,7 @@ function extractFenceFromPre(children: ReactNode): {
       children?: ReactNode
     }
     const cls = props.className ?? ""
-    const match = cls.match(/language-([\w-]+)/)
+    const match = cls.match(/language-([\w.-]+)/)
     lang = match?.[1] ?? null
     code = nodeToPlainText(props.children).replace(/\r\n/g, "\n")
   })
@@ -68,7 +71,7 @@ function extractFenceFromPre(children: ReactNode): {
 }
 
 const highlightLangForFence = (lang: string) =>
-  lang === "mdx" ? "markdown" : lang
+  lang === "mdx" || lang === PREVIEW_FENCE_LANG ? "markdown" : lang
 
 function createMdxComponents(): MdxComponentMap {
   const elements: Omit<MdxComponentMap, "pre"> = {
@@ -90,7 +93,7 @@ function createMdxComponents(): MdxComponentMap {
     ...elements,
     pre(props: ComponentPropsWithoutRef<"pre">) {
       const { lang, code } = extractFenceFromPre(props.children)
-      if (lang === "mdx" && code.length > 0) {
+      if (lang === PREVIEW_FENCE_LANG && code.length > 0) {
         return (
           <ComponentPreview
             code={code}

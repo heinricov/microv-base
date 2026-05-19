@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
 import { mdxComponents, PageHeader } from "./mdx-components"
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "../lib/utils"
 
 export type MdxReadingProps = {
   /** Subpath di bawah folder konten, mis. `/docs` → `{cwd}/mdx-content/docs` */

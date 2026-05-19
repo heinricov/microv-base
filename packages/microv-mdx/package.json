@@ -1,40 +1,74 @@
 {
-  "name": "@workspace/microv-mdx",
-  "version": "0.0.0",
+  "name": "microv-mdx",
+  "version": "0.1.0",
+  "description": "MDX file reading and rendering for Next.js App Router (next-mdx-remote, preview fences, typography)",
   "type": "module",
-  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles/globals.css": "./dist/styles/globals.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json && node ./scripts/copy-styles.mjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit"
   },
-  "exports": {
-    "./mdx/mdx-reading": "./src/mdx/mdx-reading.tsx",
-    "./mdx/mdx-components": "./src/mdx/mdx-components.tsx",
-    "./src/mdx/mdx-reading": "./src/mdx/mdx-reading.tsx",
-    "./src/mdx/mdx-components": "./src/mdx/mdx-components.tsx"
+  "keywords": [
+    "mdx",
+    "next.js",
+    "next-mdx-remote",
+    "react",
+    "rsc"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/microv-base",
+    "directory": "packages/microv-mdx"
   },
   "peerDependencies": {
     "next": ">=14",
     "next-themes": "^0.4.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
-    "next-mdx-remote": "^5.0.0"
+    "lucide-react": "^1.16.0",
+    "next-mdx-remote": "^5.0.0",
+    "shiki": "^4.0.2",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
-    "next": "16.1.6",
-    "next-themes": "^0.4.6",
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "@workspace/eslint-config": "*",
     "@workspace/typescript-config": "*",
     "eslint": "^9.39.2",
+    "next": "16.1.6",
+    "next-themes": "^0.4.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

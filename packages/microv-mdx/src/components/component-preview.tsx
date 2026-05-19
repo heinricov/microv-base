@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { Button } from "@workspace/ui/components/button"
 import { ChevronDown, Check, Copy } from "lucide-react"
 
 import { cn } from "../lib/utils"
@@ -60,6 +59,13 @@ export function ComponentPreview({
   }
 
   const codeLines = code.split("\n")
+
+  const toolbarBtnClass = cn(
+    "inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-border",
+    "bg-background px-2 text-xs font-medium shadow-none outline-none transition-colors",
+    "hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/30 sm:text-sm",
+    "disabled:pointer-events-none disabled:opacity-50"
+  )
 
   return (
     <div
@@ -155,12 +161,10 @@ export function ComponentPreview({
           "bg-muted supports-backdrop-filter:backdrop-blur-sm dark:bg-zinc-900/70"
         )}
       >
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          size="sm"
           onClick={handleCopyCode}
-          className="h-8 gap-1.5 text-xs shadow-none sm:text-sm"
+          className={toolbarBtnClass}
           title={copied ? "Disalin" : "Salin kode"}
           aria-label={copied ? "Disalin" : "Salin kode"}
         >
@@ -170,13 +174,11 @@ export function ComponentPreview({
             <Copy className="size-4 shrink-0 opacity-70" />
           )}
           <span className="max-sm:sr-only">{copied ? "Disalin" : "Salin"}</span>
-        </Button>
-        <Button
+        </button>
+        <button
           type="button"
-          variant="ghost"
-          size="sm"
           onClick={() => setShowCode(!showCode)}
-          className="h-8 gap-1.5 text-xs shadow-none sm:text-sm"
+          className={toolbarBtnClass}
           aria-expanded={showCode}
         >
           {showCode ? "Sembunyikan kode" : "Lihat kode"}
@@ -186,7 +188,7 @@ export function ComponentPreview({
               showCode && "rotate-180"
             )}
           />
-        </Button>
+        </button>
       </div>
     </div>
   )
