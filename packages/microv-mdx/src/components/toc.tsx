@@ -1,10 +1,7 @@
 "use client"
 
 import type { CSSProperties } from "react"
-import { useEffect, useState } from "react"
-import { createPortal } from "react-dom"
 import Link from "next/link"
-import { ChevronRight, ListTree } from "lucide-react"
 
 import {
   Sidebar,
@@ -18,9 +15,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  useSidebar,
 } from "../components/ui/sidebar"
-import { Button } from "../components/ui/button"
+import { useIsMobile } from "../hooks/use-mobile"
 import type { TocItem } from "../lib/heading-slug"
 import { cn } from "../lib/utils"
 import { mdxTocLayoutVars, type MdxTocLayoutCssVars } from "../lib/toc-vars"
@@ -105,49 +101,26 @@ function resolveTocLayoutStyle(
   return { ...mdxTocLayoutVars, ...overrides } as CSSProperties
 }
 
-function layoutStyleToCssVars(
-  layoutStyle: MdxTocLayoutCssVars & Partial<MdxTocLayoutCssVars>
-): CSSProperties {
-  return layoutStyle as CSSProperties
-}
-
-/** Bar trigger TOC mobile: portal ke body, fixed tepat di bawah navbar. */
-function MobileTocTriggerBar({
-  layoutStyle,
+function TocContent({
+  children,
+  className,
 }: {
-  layoutStyle: MdxTocLayoutCssVars & Partial<MdxTocLayoutCssVars>
+  children: React.ReactNode
+  className?: string
 }) {
-  const { toggleSidebar } = useSidebar()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const bar = (
-    <div
-      role="toolbar"
-      aria-label="Buka daftar isi"
-      className="mdx-mobile-toc-bar top-10 md:hidden"
-      style={layoutStyleToCssVars(layoutStyle)}
-    >
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className="size-9 shrink-0"
-        onClick={toggleSidebar}
-        aria-label="Buka daftar isi"
+  return (
+    <div className="flex justify-center px-4 pb-6 pt-0 md:py-6">
+      <div
+        className={cn(
+          "w-full max-w-3xl space-y-5",
+          "max-md:[&>div:first-child]:mt-0!",
+          className
+        )}
       >
-        <ListTree className="size-4" />
-      </Button>
-      <span className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight">
-        Daftar isi
-      </span>
+        {children}
+      </div>
     </div>
   )
-
-  return mounted ? createPortal(bar, document.body) : null
 }
 
 /** Layout: sidebar TOC kanan (desktop), konten tetap di tengah. */
@@ -157,7 +130,17 @@ export function TocLayout({
   className,
   layoutVars,
 }: TocLayoutProps) {
+  const isMobile = useIsMobile()
+
   if (items.length === 0) {
+    return (
+      <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
+        {children}
+      </div>
+    )
+  }
+
+  if (isMobile) {
     return (
       <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
         {children}
@@ -174,18 +157,7 @@ export function TocLayout({
     >
       <SidebarProvider defaultOpen>
         <SidebarInset>
-          <MobileTocTriggerBar layoutStyle={layoutStyle} />
-          <div className="flex justify-center px-4 pt-0 pb-6 md:py-6">
-            <div
-              className={cn(
-                "w-full max-w-3xl space-y-5",
-                "max-md:[&>div:first-child]:mt-0!",
-                className
-              )}
-            >
-              {children}
-            </div>
-          </div>
+          <TocContent className={className}>{children}</TocContent>
         </SidebarInset>
         <TableOfContents items={items} layoutStyle={layoutStyle} />
       </SidebarProvider>
