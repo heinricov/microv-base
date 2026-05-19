@@ -22,7 +22,9 @@ Pastikan `tailwind` mengimpor sumber styles (opsional, untuk token tema shadcn):
 @import "microv-mdx/styles/globals.css";
 ```
 
-Atau sesuaikan `@source` Tailwind agar memindai `node_modules/microv-mdx/dist` jika Anda hanya memakai kelas utilitas.
+**Penting:** `globals.css` paket memakai `@source` relatif agar Tailwind memindai komponen di `dist/**/*.js` ketika paket terpasang dari npm — utilitas seperti `text-4xl` di `TypographyH1` ikut ter‑generate. Jangan menghapus impor CSS ini; tanpa itu, MDX bisa tampil polos.
+
+Atau sesuaikan `@source` Tailwind aplikasi Anda agar memindai `node_modules/microv-mdx/dist/**/*.{js,mjs}` jika Anda tidak mengimpor stylesheet paket (tidak disarankan).
 
 ## Penggunaan
 

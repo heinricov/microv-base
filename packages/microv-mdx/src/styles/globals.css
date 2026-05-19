@@ -3,9 +3,8 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
+/* Dari src/styles: pindai src/** ; dari dist/styles (npm): pindai dist/** — kelas ada di .tsx / .js komponen paket */
+@source "../**/*.{ts,tsx,js,mjs}";
 
 @theme inline {
     --font-heading: var(--font-sans);
