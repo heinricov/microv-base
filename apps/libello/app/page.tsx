@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button"
-import BlogsSection from "@/components/blogs"
+import HeroSection from "@/components/hero"
 
 export default function Page() {
   return (
     <>
-      <BlogsSection />
+      <HeroSection />
     </>
   )
 }
