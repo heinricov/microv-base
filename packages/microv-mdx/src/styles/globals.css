@@ -129,3 +129,35 @@
     cursor: pointer;
     }
 }
+
+/* TOC mobile: bar fixed di bawah navbar + ruang konten */
+@media (max-width: 767px) {
+  .mdx-toc-layout [data-slot="sidebar-inset"] {
+    padding-top: var(--toc-mobile-bar-height, 3rem);
+  }
+}
+
+@layer components {
+  .mdx-mobile-toc-bar {
+    position: fixed;
+    top: var(--header-height, 4.5rem);
+    right: 0;
+    left: 0;
+    z-index: 30;
+    display: flex;
+    height: var(--toc-mobile-bar-height, 3rem);
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+    background-color: color-mix(in oklab, var(--background) 95%, transparent);
+    padding-inline: 1rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    backdrop-filter: blur(8px);
+  }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .mdx-mobile-toc-bar {
+      background-color: color-mix(in oklab, var(--background) 80%, transparent);
+    }
+  }
+}

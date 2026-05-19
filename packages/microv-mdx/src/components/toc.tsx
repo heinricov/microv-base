@@ -1,7 +1,10 @@
 "use client"
 
 import type { CSSProperties } from "react"
+import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import Link from "next/link"
+import { ChevronRight, ListTree } from "lucide-react"
 
 import {
   Sidebar,
@@ -15,8 +18,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
+  useSidebar,
 } from "../components/ui/sidebar"
+import { Button } from "../components/ui/button"
 import type { TocItem } from "../lib/heading-slug"
 import { cn } from "../lib/utils"
 import { mdxTocLayoutVars, type MdxTocLayoutCssVars } from "../lib/toc-vars"
@@ -101,6 +105,51 @@ function resolveTocLayoutStyle(
   return { ...mdxTocLayoutVars, ...overrides } as CSSProperties
 }
 
+function layoutStyleToCssVars(
+  layoutStyle: MdxTocLayoutCssVars & Partial<MdxTocLayoutCssVars>
+): CSSProperties {
+  return layoutStyle as CSSProperties
+}
+
+/** Bar trigger TOC mobile: portal ke body, fixed tepat di bawah navbar. */
+function MobileTocTriggerBar({
+  layoutStyle,
+}: {
+  layoutStyle: MdxTocLayoutCssVars & Partial<MdxTocLayoutCssVars>
+}) {
+  const { toggleSidebar } = useSidebar()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const bar = (
+    <div
+      role="toolbar"
+      aria-label="Buka daftar isi"
+      className="mdx-mobile-toc-bar top-10 md:hidden"
+      style={layoutStyleToCssVars(layoutStyle)}
+    >
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        className="size-9 shrink-0"
+        onClick={toggleSidebar}
+        aria-label="Buka daftar isi"
+      >
+        <ListTree className="size-4" />
+      </Button>
+      <span className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight">
+        Daftar isi
+      </span>
+    </div>
+  )
+
+  return mounted ? createPortal(bar, document.body) : null
+}
+
 /** Layout: sidebar TOC kanan (desktop), konten tetap di tengah. */
 export function TocLayout({
   items,
@@ -116,6 +165,8 @@ export function TocLayout({
     )
   }
 
+  const layoutStyle = { ...mdxTocLayoutVars, ...layoutVars }
+
   return (
     <div
       className="mdx-toc-layout w-full"
@@ -123,20 +174,20 @@ export function TocLayout({
     >
       <SidebarProvider defaultOpen>
         <SidebarInset>
-          <div className="flex items-center gap-2 border-b px-4 py-2 md:hidden">
-            <SidebarTrigger />
-            <span className="text-sm font-medium">Daftar isi</span>
-          </div>
-          <div className="flex justify-center px-4 py-6">
-            <div className={cn("w-full max-w-3xl space-y-5", className)}>
+          <MobileTocTriggerBar layoutStyle={layoutStyle} />
+          <div className="flex justify-center px-4 pt-0 pb-6 md:py-6">
+            <div
+              className={cn(
+                "w-full max-w-3xl space-y-5",
+                "max-md:[&>div:first-child]:mt-0!",
+                className
+              )}
+            >
               {children}
             </div>
           </div>
         </SidebarInset>
-        <TableOfContents
-          items={items}
-          layoutStyle={{ ...mdxTocLayoutVars, ...layoutVars }}
-        />
+        <TableOfContents items={items} layoutStyle={layoutStyle} />
       </SidebarProvider>
     </div>
   )

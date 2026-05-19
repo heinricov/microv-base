@@ -12,7 +12,7 @@ export default function PageHeader({
   tag?: string[]
 }) {
   return (
-    <div className="my-5 mb-10 border-b pb-5">
+    <div className="mb-10 border-b pb-5 max-md:mt-0 md:my-5">
       <PageBreadcrumb currentLabel={title} />
       <div>
         {tag != null && tag.length > 0 ? (

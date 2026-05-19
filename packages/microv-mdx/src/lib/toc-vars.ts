@@ -5,8 +5,10 @@
 export const mdxTocLayoutVars = {
   /** Tinggi area navbar fixed */
   "--header-height": "4.5rem",
-  /** Jarak tambahan di bawah navbar sebelum TOC */
-  "--toc-top-extra": "3rem",
+  /** Jarak tambahan di bawah navbar sebelum TOC (desktop) */
+  "--toc-top-extra": "4rem",
+  /** Tinggi bar trigger TOC di mobile (area sentuh ~44px) */
+  "--toc-mobile-bar-height": "3rem",
   /** Offset bawah (footer) */
   "--footer-height": "8rem",
   /** Lebar kolom konten MDX — harus selaras dengan `max-w-3xl` di `TocLayout` */
