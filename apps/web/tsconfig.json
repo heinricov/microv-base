@@ -4,7 +4,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@packages/microv-mdx": ["../../packages/microv-mdx/src/index.ts"],
+      "@packages/microv-mdx/*": ["../../packages/microv-mdx/src/*"]
     },
     "plugins": [
       {

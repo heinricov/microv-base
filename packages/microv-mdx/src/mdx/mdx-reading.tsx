@@ -19,6 +19,22 @@ export type MdxReadingProps = {
   className?: string
 }
 
+function normalizeFrontmatterTags(value: unknown): string[] | undefined {
+  if (value == null) return undefined
+  if (Array.isArray(value)) {
+    const strings = value
+      .filter((item): item is string => typeof item === "string")
+      .map((s) => s.trim())
+      .filter(Boolean)
+    return strings.length > 0 ? strings : undefined
+  }
+  if (typeof value === "string") {
+    const s = value.trim()
+    return s ? [s] : undefined
+  }
+  return undefined
+}
+
 async function resolveMdxFile(
   baseDir: string,
   slug: string[] | undefined
@@ -78,10 +94,16 @@ export async function MdxReading({
     title.trim().length > 0 &&
     description.trim().length > 0
 
+  const tag = normalizeFrontmatterTags(data.tag)
+
   return (
     <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
       {hasTitleDescriptionFrontmatter ? (
-        <PageHeader title={title.trim()} description={description.trim()} />
+        <PageHeader
+          title={title.trim()}
+          description={description.trim()}
+          tag={tag}
+        />
       ) : null}
       <MDXRemote source={content} components={mdxComponents} />
     </div>

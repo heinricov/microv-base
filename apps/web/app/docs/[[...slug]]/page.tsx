@@ -1,4 +1,4 @@
-import { MdxReading } from "microv-mdx"
+import { MdxReading } from "@packages/microv-mdx"
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>
