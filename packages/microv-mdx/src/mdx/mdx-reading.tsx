@@ -109,11 +109,13 @@ export async function MdxReading({
           tag={tag}
         />
       ) : null}
-      <MDXRemote
-        source={content}
-        components={components}
-        options={mdxRemoteOptions}
-      />
+      <div className="mb-10">
+        <MDXRemote
+          source={content}
+          components={components}
+          options={mdxRemoteOptions}
+        />
+      </div>
     </TocLayout>
   )
 }
