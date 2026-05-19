@@ -6,9 +6,10 @@ import matter from "gray-matter"
 import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
-import { mdxComponents, PageHeader } from "./mdx-components"
+import { createMdxComponents, PageHeader } from "./mdx-components"
+import { TocLayout } from "./toc"
+import { extractHeadings } from "../lib/heading-slug"
 import { mdxRemoteOptions } from "../lib/mdx-remote-options"
-import { cn } from "../lib/utils"
 
 export type MdxReadingProps = {
   /** Subpath di bawah folder konten, mis. `/docs` → `{cwd}/mdx-content/docs` */
@@ -96,9 +97,11 @@ export async function MdxReading({
     description.trim().length > 0
 
   const tag = normalizeFrontmatterTags(data.tag)
+  const tocItems = extractHeadings(content)
+  const components = createMdxComponents()
 
   return (
-    <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
+    <TocLayout items={tocItems} className={className}>
       {hasTitleDescriptionFrontmatter ? (
         <PageHeader
           title={title.trim()}
@@ -108,9 +111,9 @@ export async function MdxReading({
       ) : null}
       <MDXRemote
         source={content}
-        components={mdxComponents}
+        components={components}
         options={mdxRemoteOptions}
       />
-    </div>
+    </TocLayout>
   )
 }

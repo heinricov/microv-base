@@ -1,4 +1,4 @@
-import {
+import React, {
   Children,
   isValidElement,
   type ComponentPropsWithoutRef,
@@ -9,6 +9,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 
 import { ComponentPreview } from "../components/component-preview"
 import { mdxTableComponents } from "../components/table"
+import { createSlugRegistry } from "../lib/heading-slug"
 import { mdxRemoteOptions } from "../lib/mdx-remote-options"
 import {
   TypographyBlockquote,
@@ -73,13 +74,26 @@ function extractFenceFromPre(children: ReactNode): {
 const highlightLangForFence = (lang: string) =>
   lang === "mdx" || lang === PREVIEW_FENCE_LANG ? "markdown" : lang
 
+function withHeadingId<T extends "h1" | "h2" | "h3" | "h4">(
+  Component: React.ComponentType<ComponentPropsWithoutRef<T>>,
+  slugRegistry: ReturnType<typeof createSlugRegistry>
+) {
+  return function HeadingWithId(props: ComponentPropsWithoutRef<T>) {
+    const text = nodeToPlainText(props.children)
+    const id = slugRegistry.slugifyText(text)
+    return <Component id={id} {...props} />
+  }
+}
+
 function createMdxComponents(): MdxComponentMap {
+  const slugRegistry = createSlugRegistry()
+
   const elements: Omit<MdxComponentMap, "pre"> = {
     ...mdxTableComponents,
-    h1: TypographyH1,
-    h2: TypographyH2,
-    h3: TypographyH3,
-    h4: TypographyH4,
+    h1: withHeadingId(TypographyH1, slugRegistry),
+    h2: withHeadingId(TypographyH2, slugRegistry),
+    h3: withHeadingId(TypographyH3, slugRegistry),
+    h4: withHeadingId(TypographyH4, slugRegistry),
     p: TypographyP,
     a: TypographyLink,
     strong: TypographyStrong,
@@ -114,3 +128,5 @@ function createMdxComponents(): MdxComponentMap {
 
 /** Mapping komponen untuk MDX (`<MDXRemote components={...} />`). */
 export const mdxComponents = createMdxComponents()
+
+export { createMdxComponents }

@@ -26,7 +26,7 @@ export default function PageHeader({
           {title}
         </h1>
       </div>
-      <p className="mt-2 ml-3 text-sm leading-none font-medium text-muted-foreground">
+      <p className="mt-2 space-y-2 text-sm leading-relaxed font-medium text-muted-foreground">
         {description}
       </p>
     </div>
