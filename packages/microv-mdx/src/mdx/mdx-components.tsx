@@ -19,6 +19,7 @@ import {
   TypographyH4,
   TypographyLink,
   TypographyList,
+  TypographyListItem,
   TypographyOrderedList,
   TypographyP,
   TypographyStrong,
@@ -100,6 +101,7 @@ function createMdxComponents(): MdxComponentMap {
     blockquote: TypographyBlockquote,
     ul: TypographyList,
     ol: TypographyOrderedList,
+    li: TypographyListItem,
   }
 
   let full: MdxComponentMap

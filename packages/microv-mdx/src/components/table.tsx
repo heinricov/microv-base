@@ -18,15 +18,17 @@ import { cn } from "../lib/utils"
  */
 function MdxTable({ className, ...props }: ComponentProps<typeof Table>) {
   return (
-    <Table
-      className={cn(
-        "rounded-md border border-border",
-        "[&_th]:border-r [&_td]:border-r [&_th:last-child]:border-r-0 [&_td:last-child]:border-r-0",
-        "[&_th]:border-border/80 [&_td]:border-border/80",
-        className
-      )}
-      {...props}
-    />
+    <div className="mdx-table-wrap">
+      <Table
+        className={cn(
+          "rounded-md border border-border",
+          "[&_th]:border-r [&_td]:border-r [&_th:last-child]:border-r-0 [&_td:last-child]:border-r-0",
+          "[&_th]:border-border/80 [&_td]:border-border/80",
+          className
+        )}
+        {...props}
+      />
+    </div>
   )
 }
 

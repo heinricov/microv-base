@@ -4,7 +4,9 @@ const MDX_PACKAGE = "microv-mdx"
 
 /**
  * Gabungkan `transpilePackages` untuk `microv-mdx`.
- * Opsional — kebanyakan app cukup memakai `<MdxReading />` tanpa ini.
+ * Untuk PageHeader/sidebar/badge: tambahkan di postcss app:
+ * `import microvMdxPostcss from "microv-mdx/postcss"`
+ * plugins: { "@tailwindcss/postcss": {}, "microv-mdx": microvMdxPostcss() }
  */
 export function withMicrovMdx(config: NextConfig = {}): NextConfig {
   const current = config.transpilePackages

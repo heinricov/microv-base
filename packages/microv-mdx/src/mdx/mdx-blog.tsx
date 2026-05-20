@@ -1,8 +1,7 @@
-import "../lib/mdx-styles"
-
 import { CalendarDays, Dot, User } from "lucide-react"
 import Link from "next/link"
 
+import { MdxStyleRegistry } from "../components/mdx-style-registry"
 import { Badge } from "../components/ui/badge"
 import { listMdxPosts } from "../lib/mdx-posts"
 
@@ -14,9 +13,6 @@ export type MdxBlogProps = {
 }
 
 const MAX_VISIBLE_TAGS = 3
-
-const tagBadgeClassName =
-  "bg-indigo-600/10 text-indigo-500 dark:bg-indigo-500/35 dark:text-indigo-300"
 
 const formatDate = (date: string) => {
   const parsed = new Date(date)
@@ -32,17 +28,18 @@ export default async function MdxBlog({ targetDir, contentDir }: MdxBlogProps) {
   const blogPosts = await listMdxPosts(targetDir, contentDir)
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16">
-      <div className="grid grid-cols-1 gap-x-8 gap-y-14 py-24 md:grid-cols-2 lg:grid-cols-3 lg:py-42">
-        {blogPosts.map((post) => (
-          <Link href={post.link} key={post.link}>
-            <div className="overflow-hidden rounded-xl bg-muted p-2 pb-4">
-              <div className="px-2 py-1">
+    <div className="mdx-root">
+      <MdxStyleRegistry />
+      <section className="mdx-blog-section">
+        <div className="mdx-blog-grid">
+          {blogPosts.map((post) => (
+            <Link href={post.link} key={post.link} className="mdx-blog-card">
+              <div className="mdx-blog-card__inner">
                 {post.tags.length > 0 ? (
-                  <div className="-ms-0.5 mt-4 flex flex-wrap items-center gap-2">
+                  <div className="mdx-blog-card__tags">
                     {post.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => (
                       <Badge
-                        className={tagBadgeClassName}
+                        className="mdx-blog-tag"
                         key={tag}
                         variant="secondary"
                       >
@@ -50,30 +47,28 @@ export default async function MdxBlog({ targetDir, contentDir }: MdxBlogProps) {
                       </Badge>
                     ))}
                     {post.tags.length > MAX_VISIBLE_TAGS ? (
-                      <Badge className={tagBadgeClassName} variant="secondary">
+                      <Badge className="mdx-blog-tag" variant="secondary">
                         +{post.tags.length - MAX_VISIBLE_TAGS}
                       </Badge>
                     ) : null}
                   </div>
                 ) : null}
-                <h3 className="mt-4 text-xl font-medium tracking-[-0.015em]">
-                  {post.title}
-                </h3>
-                <div className="mt-3 flex items-center gap-1">
-                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <CalendarDays className="h-4 w-4" />
+                <h3 className="mdx-blog-card__title">{post.title}</h3>
+                <div className="mdx-blog-card__meta">
+                  <div className="mdx-blog-card__meta-row">
+                    <CalendarDays />
                     {formatDate(post.publishedDate)}
                   </div>
-                  <Dot className="text-muted-foreground" />
-                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <User className="h-4 w-4" /> {post.author}
+                  <Dot className="mdx-blog-card__dot" />
+                  <div className="mdx-blog-card__meta-row">
+                    <User /> {post.author}
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </div>
   )
 }

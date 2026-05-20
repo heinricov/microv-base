@@ -1,3 +1,4 @@
+export { MdxStyleRegistry } from "./components/mdx-style-registry"
 export { MdxReading, type MdxReadingProps } from "./mdx/mdx-reading"
 export { mdxComponents, PageHeader } from "./mdx/mdx-components"
 export { TocLayout } from "./components/toc"

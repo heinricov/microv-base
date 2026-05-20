@@ -1,7 +1,6 @@
 /**
- * Auto-import oleh MdxReading / MdxBlog.
- * - theme-fallback: token bawaan (ber-layer, tidak menimpa globals app)
- * - mdx: @source komponen paket
+ * Auto-load: theme fallback (ber-layer) + prose MDX + utilities UI komponen.
  */
 @import "./theme-fallback.css";
-@import "./mdx.css";
+@import "./mdx-prose.css";
+@import "./mdx-bundle.css";

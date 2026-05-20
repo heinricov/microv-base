@@ -21,14 +21,7 @@ import type { TocItem } from "../lib/heading-slug"
 import { cn } from "../lib/utils"
 import { mdxTocLayoutVars, type MdxTocLayoutCssVars } from "../lib/toc-vars"
 
-const levelIndent: Record<TocItem["level"], string> = {
-  1: "font-medium",
-  2: "pl-2",
-  3: "pl-4 text-xs",
-  4: "pl-6 text-xs text-muted-foreground",
-}
-
-const tocSidebarClassName = cn("!right-[var(--toc-right)]", "border-l")
+const tocSidebarClassName = "mdx-toc-sidebar"
 
 function tocSidebarPositionStyle(
   vars: MdxTocLayoutCssVars & Partial<MdxTocLayoutCssVars>
@@ -59,23 +52,23 @@ function TableOfContents({
       className={tocSidebarClassName}
       style={tocSidebarPositionStyle(layoutStyle)}
     >
-      <SidebarHeader className="border-b px-4 py-3">
-        <SidebarGroupLabel className="text-xs font-semibold tracking-wide uppercase">
-          Daftar isi
-        </SidebarGroupLabel>
+      <SidebarHeader>
+        <SidebarGroupLabel>Daftar isi</SidebarGroupLabel>
       </SidebarHeader>
-      <SidebarContent className="overflow-y-auto px-2 py-2">
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton
-                    asChild
-                    size="sm"
-                    className={cn("h-auto py-1.5", levelIndent[item.level])}
-                  >
-                    <Link href={`#${item.id}`}>{item.text}</Link>
+                  <SidebarMenuButton asChild size="sm">
+                    <Link
+                      href={`#${item.id}`}
+                      className="mdx-toc-link"
+                      data-level={item.level}
+                    >
+                      {item.text}
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -109,16 +102,8 @@ function TocContent({
   className?: string
 }) {
   return (
-    <div className="flex justify-center px-4 pb-6 pt-0 md:py-6">
-      <div
-        className={cn(
-          "w-full max-w-3xl space-y-5",
-          "max-md:[&>div:first-child]:mt-0!",
-          className
-        )}
-      >
-        {children}
-      </div>
+    <div className="mdx-toc-center">
+      <div className={cn("mdx-toc-inner", className)}>{children}</div>
     </div>
   )
 }
@@ -134,15 +119,13 @@ export function TocLayout({
 
   if (items.length === 0) {
     return (
-      <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
-        {children}
-      </div>
+      <div className={cn("mdx-toc-simple", className)}>{children}</div>
     )
   }
 
   if (isMobile) {
     return (
-      <div className={cn("mx-auto mb-10 max-w-3xl space-y-5 px-4", className)}>
+      <div className={cn("mdx-toc-simple", className)}>
         {children}
       </div>
     )

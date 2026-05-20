@@ -9,13 +9,7 @@ export function TypographyH1({
   ...props
 }: ComponentPropsWithoutRef<"h1">) {
   return (
-    <h1
-      className={cn(
-        "my-1.5 mt-5 scroll-mt-24 text-4xl font-extrabold tracking-tight text-balance",
-        className
-      )}
-      {...props}
-    >
+    <h1 className={cn("mdx-h1", className)} {...props}>
       {children}
     </h1>
   )
@@ -27,13 +21,7 @@ export function TypographyH2({
   ...props
 }: ComponentPropsWithoutRef<"h2">) {
   return (
-    <h2
-      className={cn(
-        "my-1.5 mt-5 scroll-mt-24 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
-        className
-      )}
-      {...props}
-    >
+    <h2 className={cn("mdx-h2", className)} {...props}>
       {children}
     </h2>
   )
@@ -45,13 +33,7 @@ export function TypographyH3({
   ...props
 }: ComponentPropsWithoutRef<"h3">) {
   return (
-    <h3
-      className={cn(
-        "my-1.5 mt-3 scroll-mt-24 border-none text-2xl font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    >
+    <h3 className={cn("mdx-h3", className)} {...props}>
       {children}
     </h3>
   )
@@ -63,13 +45,7 @@ export function TypographyH4({
   ...props
 }: ComponentPropsWithoutRef<"h4">) {
   return (
-    <h4
-      className={cn(
-        "my-1.5 mt-3 scroll-mt-24 text-xl font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    >
+    <h4 className={cn("mdx-h4", className)} {...props}>
       {children}
     </h4>
   )
@@ -81,7 +57,7 @@ export function TypographyP({
   ...props
 }: ComponentPropsWithoutRef<"p">) {
   return (
-    <p className={cn("leading-7 not-first:mt-6", className)} {...props}>
+    <p className={cn("mdx-p", className)} {...props}>
       {children}
     </p>
   )
@@ -93,13 +69,7 @@ export function TypographyBlockquote({
   ...props
 }: ComponentPropsWithoutRef<"blockquote">) {
   return (
-    <blockquote
-      className={cn(
-        "mt-6 border-l-2 bg-muted/50 p-4 pl-6 text-muted-foreground italic",
-        className
-      )}
-      {...props}
-    >
+    <blockquote className={cn("mdx-blockquote", className)} {...props}>
       {children}
     </blockquote>
   )
@@ -111,9 +81,21 @@ export function TypographyStrong({
   ...props
 }: ComponentPropsWithoutRef<"strong">) {
   return (
-    <strong className={cn("text-lg font-semibold", className)} {...props}>
+    <strong className={cn("mdx-strong", className)} {...props}>
       {children}
     </strong>
+  )
+}
+
+export function TypographyListItem({
+  className,
+  children,
+  ...props
+}: ComponentPropsWithoutRef<"li">) {
+  return (
+    <li className={cn("mdx-li", className)} {...props}>
+      {children}
+    </li>
   )
 }
 
@@ -123,7 +105,7 @@ export function TypographyList({
   ...props
 }: ComponentPropsWithoutRef<"ul">) {
   return (
-    <ul className={cn("my-6 ml-6 list-disc [&>li]:mt-2", className)} {...props}>
+    <ul className={cn("mdx-ul", className)} {...props}>
       {children}
     </ul>
   )
@@ -135,10 +117,7 @@ export function TypographyOrderedList({
   ...props
 }: ComponentPropsWithoutRef<"ol">) {
   return (
-    <ol
-      className={cn("my-6 ml-6 list-decimal [&>li]:mt-2", className)}
-      {...props}
-    >
+    <ol className={cn("mdx-ol", className)} {...props}>
       {children}
     </ol>
   )
@@ -152,10 +131,7 @@ export function TypographyLink({
   target,
   rel,
 }: ComponentPropsWithoutRef<"a">) {
-  const mergedClassName = cn(
-    "font-medium text-foreground underline underline-offset-4 transition-colors hover:text-blue-600 dark:hover:text-blue-400",
-    className
-  )
+  const mergedClassName = cn("mdx-a", className)
 
   if (href == null || href === "") {
     return (

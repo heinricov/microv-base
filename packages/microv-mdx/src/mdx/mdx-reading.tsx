@@ -1,11 +1,10 @@
-import "../lib/mdx-styles"
-
 import fs from "node:fs/promises"
 import path from "node:path"
 import matter from "gray-matter"
 import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
+import { MdxStyleRegistry } from "../components/mdx-style-registry"
 import { createMdxComponents, PageHeader } from "./mdx-components"
 import { TocLayout } from "../components/toc"
 import { extractHeadings } from "../lib/heading-slug"
@@ -101,7 +100,9 @@ export async function MdxReading({
   const components = createMdxComponents()
 
   return (
-    <TocLayout items={tocItems} className={className}>
+    <div className="mdx-root">
+      <MdxStyleRegistry />
+      <TocLayout items={tocItems} className={className}>
       {hasTitleDescriptionFrontmatter ? (
         <PageHeader
           title={title.trim()}
@@ -109,13 +110,14 @@ export async function MdxReading({
           tag={tag}
         />
       ) : null}
-      <div className="mb-10">
+      <article className="mdx-content mb-10">
         <MDXRemote
           source={content}
           components={components}
           options={mdxRemoteOptions}
         />
-      </div>
+      </article>
     </TocLayout>
+    </div>
   )
 }

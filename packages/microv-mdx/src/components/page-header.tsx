@@ -12,11 +12,11 @@ export default function PageHeader({
   tag?: string[]
 }) {
   return (
-    <div className="mb-10 border-b pb-5 max-md:mt-0 md:my-5">
+    <header className="mdx-page-header">
       <PageBreadcrumb currentLabel={title} />
       <div>
         {tag != null && tag.length > 0 ? (
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mdx-page-header__tags">
             {tag.map((label, index) => (
               <Badge key={`${label}-${index}`} variant="outline">
                 {label}
@@ -24,13 +24,9 @@ export default function PageHeader({
             ))}
           </div>
         ) : null}
-        <h1 className="mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
-          {title}
-        </h1>
+        <h1 className="mdx-page-header__title">{title}</h1>
       </div>
-      <p className="mt-2 space-y-2 text-sm leading-relaxed font-medium text-muted-foreground">
-        {description}
-      </p>
-    </div>
+      <p className="mdx-page-header__description">{description}</p>
+    </header>
   )
 }

@@ -1,6 +1,6 @@
 {
   "name": "microv-mdx",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "MDX file reading and rendering for Next.js App Router (next-mdx-remote, preview fences, typography)",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,21 +12,26 @@
     },
     "./styles/globals.css": "./dist/styles/globals.css",
     "./styles/mdx-runtime.css": "./dist/styles/mdx-runtime.css",
+    "./styles/mdx-bundle.css": "./dist/styles/mdx-bundle.css",
     "./next": {
       "types": "./dist/next.d.ts",
       "import": "./dist/next.js"
+    },
+    "./postcss": {
+      "import": "./postcss.mjs"
     },
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "postcss.mjs",
     "README.md"
   ],
   "sideEffects": [
     "**/*.css"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && node ./scripts/copy-styles.mjs",
+    "build": "node ./scripts/inline-styles.mjs && rm -rf dist && tsc -p tsconfig.build.json && node ./scripts/copy-styles.mjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "lint": "eslint",
@@ -68,6 +73,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
+    "postcss": "^8.5.6",
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
