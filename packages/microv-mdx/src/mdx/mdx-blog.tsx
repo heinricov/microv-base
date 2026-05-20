@@ -1,3 +1,5 @@
+import "../lib/mdx-styles"
+
 import { CalendarDays, Dot, User } from "lucide-react"
 import Link from "next/link"
 

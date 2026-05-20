@@ -12,6 +12,11 @@ Peer dependencies: `next`, `react`, `react-dom`, `next-themes`.
 
 App Next.js Anda tetap membutuhkan Tailwind v4 + PostCSS (`@tailwindcss/postcss`) seperti biasa — **tidak** perlu menambah `@workspace/ui`, `@source` khusus, atau impor CSS tambahan untuk MDX.
 
+### Gaya (CSS)
+
+- **App sudah punya `globals.css`** (shadcn + token `:root` / `@theme`, seperti libello): `MdxReading` / `MdxBlog` hanya memuat `@source` komponen paket + fallback token **ber-layer** sehingga **tema app tidak ditimpa**.
+- **App belum punya tema**: impor sekali di `layout.tsx` → `import "microv-mdx/styles/globals.css"` (Tailwind + token lengkap), atau cukup komponen MDX (fallback token ber-layer tetap aktif).
+
 ## Penggunaan
 
 ```tsx
@@ -27,7 +32,7 @@ export default async function DocsPage({
 }
 ```
 
-`MdxReading` otomatis memuat stylesheet paket (token shadcn, typography, badge, tabel, dll.). Cukup pakai komponen ini di halaman catch-all MDX Anda.
+`MdxReading` dan `MdxBlog` otomatis memuat runtime CSS paket. Cukup pakai komponen di halaman Anda.
 
 - `source`: subpath di bawah folder konten (mis. `mdx-content/docs` jika `source="/docs"`).
 - `slug`: segmen URL dari rute catch-all opsional.
@@ -44,9 +49,7 @@ import { withMicrovMdx } from "microv-mdx/next"
 export default withMicrovMdx({})
 ```
 
-### Opsional: impor CSS eksplisit
-
-Biasanya tidak perlu — `MdxReading` sudah mengimpor `microv-mdx/styles/globals.css`. Jika ingin memuat gaya lebih awal (mis. di `layout.tsx`):
+### Opsional: impor CSS lengkap (app tanpa `globals.css`)
 
 ```ts
 import "microv-mdx/styles/globals.css"
@@ -54,9 +57,10 @@ import "microv-mdx/styles/globals.css"
 
 ## Ekspor
 
-- `MdxReading`, `mdxComponents`, `PageHeader`, `mdxTableComponents`
+- `MdxReading`, `MdxBlog`, `mdxComponents`, `PageHeader`, `mdxTableComponents`
 - `withMicrovMdx` dari `microv-mdx/next`
-- `microv-mdx/styles/globals.css`
+- `microv-mdx/styles/globals.css` (standalone)
+- `microv-mdx/styles/mdx-runtime.css` (runtime, biasanya via komponen)
 
 ## Nama paket npm
 

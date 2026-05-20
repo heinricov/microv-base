@@ -1,4 +1,4 @@
-import "../styles/globals.css"
+import "../lib/mdx-styles"
 
 import fs from "node:fs/promises"
 import path from "node:path"
