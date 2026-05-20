@@ -9,7 +9,7 @@ export default async function BlogsPage({ params }: PageProps) {
   const { slug } = await params
 
   if (!slug?.length) {
-    return <BlogsSection />
+    return <BlogsSection targetDir="/blogs" />
   }
 
   return <MdxReading source="/blogs" slug={slug} />
