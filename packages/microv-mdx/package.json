@@ -1,6 +1,6 @@
 {
   "name": "microv-mdx",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "description": "MDX file reading and rendering for Next.js App Router (next-mdx-remote, preview fences, typography)",
   "type": "module",
   "main": "./dist/index.js",
@@ -40,9 +40,10 @@
     "rsc"
   ],
   "license": "MIT",
+  "author": "microv",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/microv-base",
+    "url": "git+https://github.com/your-org/microv-base.git",
     "directory": "packages/microv-mdx"
   },
   "peerDependencies": {
@@ -78,6 +79,7 @@
     "typescript": "^5.9.3"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
